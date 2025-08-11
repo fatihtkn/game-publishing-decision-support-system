@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/static/addGameButtonAndFormStyle.css">
+</head>
+<body>
+   
+    
+     <!-- Oyun ekleme Butonu Kısmı -->
+    <div class="add-game-button" id="addGameButton">Oyun Ekle</div>
+
+    <!-- Modal Pencere -->
+    <div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Oyun Bilgilerini Girin</h2>
+        <form>
+            <label for="companyId">Şirket ID:</label>
+            <input type="text" id="companyId" name="companyId">
+            
+            <label for="gameId">Oyun ID:</label>
+            <input type="text" id="gameId" name="gameId">
+            
+            <label for="gameName">Oyun İsmi:</label>
+            <input type="text" id="gameName" name="gameName">
+            
+            <label for="gamePlatform">Oyun Platformu:</label>
+            <input type="text" id="gamePlatform" name="gamePlatform">
+            
+            <label for="gameType">Oyun Türü:</label>
+            <input type="text" id="gameType" name="gameType">
+            
+            <button type="submit">Kaydet</button>
+        </form>
+    </div>
+    </div>
+
+    
+    <script src="/static/addgameForm.js"></script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/static/PrototypeReports/prototypeReports.css" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/0209bfe594ed24b75ee2aac06529e4f9?family=Neue+Haas+Grotesk+Display+Pro+75+Bold" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/helvetica-neue-55?styles=15999" rel="stylesheet">
+  <title>Prototypes Reports</title>
+</head>
+<body>
+  
+  <div class="container">
+    <header>
+      <span>
+        <h1>Prototypes Reports</h1>
+        <img id="game-icon" src=""  width="150" class="game-icon">
+        <h1 id="game-title"> </h1>
+        <h3 id="company-name" class="company-name"></h3>
+        <h3 id="game-status" class="game-status"></h3>
+      </span>
+    </header>
+
+    <section class="game-info">
+     
+      <div class="dropdown">
+        <button class="dropdown-btn">Select Game</button>
+        <ul class="dropdown-menu" id="dropdown-menu"></ul>
+      </div>
+    </section>
+
+    
+
+    <section class="test-details hidden" id="test-details">
+      <!--   PROGRESS BAR    -->
+      <div class="progress-container">
+        <div class="progress-header">
+          <span class="title">Score</span>
+          <span class="dropdown-icon">▼</span>
+        </div>
+        <div class="progress-bar">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+        <div class="progress-info">
+          <div class="indicator" id="indicator">0</div>
+          <span class="status-text" id="status-text">Low Potential</span>
+        </div>
+      </div>
+          <!--   PROGRESS BAR    -->
+
+      <div class="metrics">
+        <div class="metric">
+          <h4>CPI</h4>
+          <p id="metric-cpi-score">$1.48</p>
+        </div>
+        <div class="metric">
+          <h4>Gender</h4>
+          <p style="color: #40a9ff;">63% M | 36% F</p>
+        </div>
+        <div class="metric">
+          <h4>Age</h4>
+          <p style="color: #40a9ff;">80% 13-44</p>
+        </div>
+        <div class="metric">
+          <h4>Placements</h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr);  color: #40a9ff; transform: translateY(-13px);">
+            <div>
+                <img src="/static/assets/a.png" alt="User Icon" style="width: 50px; "><br>
+                <p style="margin-top: -13px;">69%</p>
+            </div>
+            <div>
+                <img src="/static/assets/f.png" alt="Book Icon" style="width: 50px; "><br>
+                <p style="margin-top: -13px;">19%</p>
+            </div>
+            <div>
+                <img src="/static/assets/i.png"alt="Camera Icon" style="width: 50px; "><br>
+                <p style="margin-top: -13px;">12%</p>
+            </div>
+        </div>
+        </div>
+        
+          
+        </div>
+      </div>
+    </section>
+
+
+
+  </div>
+  {%include 'sideMenu.html'%}
+  {%include 'accordion.html'%}
+  <script>
+    // Şirket ve oyunları getir
+    async function fetchCompanies() {
+      const response = await fetch('/get_companies');
+      const companies = await response.json();
+      const dropdownMenu = document.getElementById('dropdown-menu');
+      dropdownMenu.innerHTML = ''; // Önce mevcut içeriği temizle
+
+      for (const [companyName, games] of Object.entries(companies)) {
+        const companyItem = document.createElement('li');
+        const span = document.createElement('span');
+        span.textContent = companyName;
+
+        const subMenu = document.createElement('ul');
+        subMenu.className = 'sub-menu';
+
+        games.forEach(game => {
+          const gameItem = document.createElement('li');
+          gameItem.textContent = game.title;
+          gameItem.onclick = async () => {
+            await selectGame(game.game_id);
+            await getGameMetrics(game.game_id);
+           
+            await window.updateLineChartData(game.game_id);
+            await window.fetchCampaingTableData(game.game_id);
+            //await window.fetchPlaytimeCohort(game.game_id);
+            };
+          subMenu.appendChild(gameItem);
+        });
+
+        companyItem.appendChild(span);
+        companyItem.appendChild(subMenu);
+        dropdownMenu.appendChild(companyItem);
+      }
+    }
+
+    // Oyun seçildiğinde detayları güncelle
+    async function selectGame(gameId) 
+    {
+    
+    const response = await fetch('/get_game_details', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ game_id: gameId })
+    });
+
+    if (response.ok) {
+    const game = await response.json();
+
+    // Detayları güncelle
+    document.getElementById('game-title').textContent = game.title;
+    document.getElementById('game-icon').src = game.icon;
+    document.getElementById('company-name').textContent = "By"+" "+game.companyName;
+
+    const detailsSection = document.getElementById('test-details');
+    
+    // Görünürlük durumunu güncelle
+    detailsSection.style.display = 'flex'; // Önce görünür hale getir
+    setTimeout(() => {
+      detailsSection.classList.remove('hidden');
+      detailsSection.classList.add('visible');
+    }, 10); // Animasyonun düzgün çalışması için kısa bir gecikme ekle
+  } else {
+    console.error('Error fetching game details:', await response.json());
+  }
+}
+    // Sayfa yüklendiğinde şirket ve oyunları yükle
+    document.addEventListener('DOMContentLoaded', fetchCompanies);
+   
+    async function getGameMetrics(gameId){
+    const response = await fetch('/get_selected_game_metrics', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ game_id: gameId })
+    });
+    if(response.ok){
+      metrics= await response.json();
+      
+      cpi=metrics.cpi;
+      document.getElementById('metric-cpi-score').textContent=cpi+" $";
+      
+      const indicator= document.getElementById('indicator');
+      const statusText=document.getElementById('status-text');
+      const segments = document.querySelectorAll(".segment");
+
+      segments.forEach(segment => {
+      segment.style.backgroundColor = "#f3f3f3";
+      });
+
+      statusText.style.color="#f3f3f3";
+      
+      if (cpi < 1) {
+        // 1'den küçükse, 5 segmenti yeşil yap
+        segments.forEach(segment => {
+          segment.style.backgroundColor = "#4DFA01";
+
+          
+        });
+
+        statusText.textContent="High Potential";
+        statusText.style.color="#4DFA01";
+        //indicator.style.backgroundColor="#4DFA01";
+        indicator.textContent="5";
+      }
+      else if (cpi >= 1 && cpi < 2) {
+        // 1 ile 2 arasında ise, ilk 3 segmenti sarı yap
+        for (let i = 0; i < 3; i++) {
+          segments[i].style.backgroundColor = "#FA9201";
+          
+        }
+        //indicator.style.backgroundcolor="#FA9201";
+        statusText.style.color="#FA9201";
+        indicator.textContent="3";
+        statusText.textContent="Mid Potential";
+        
+      }
+      else if (cpi >= 2) {
+        // 2'den büyükse, tüm segmentleri #f3f3f3 yap
+        console.log(cpi);
+        segments.forEach(segment => {
+          segment.style.backgroundColor = "#F3F3F3";
+        });
+
+        indicator.style.backgroundcolor="#F3F3F3";
+        indicator.textContent="0";
+        statusText.textContent="Low Potential";
+        statusText.style.color="#888";
+      }
+      
+      /*
+      const segments = document.querySelectorAll(".segment");
+      const indicator= document.getElementById('indicator');
+      const statusText=document.getElementById('status-text');
+
+      indicator.textContent=cpi;
+      segments.forEach(segment => {
+      segment.style.backgroundColor = "#f3f3f3";
+      });
+    
+      if (cpi < 1) {
+        // 1'den küçükse, 5 segmenti yeşil yap
+        segments.forEach(segment => {
+          segment.style.backgroundColor = "#4DFA01";
+          
+        });
+        indicator.style.backgroundColor="#4DFA01";
+        indicator.textContent="5";
+        statusText.textContent="High Potential";
+      } 
+      else if (cpi >= 1 && cpi < 2) {
+        // 1 ile 2 arasında ise, ilk 3 segmenti sarı yap
+        for (let i = 0; i < 3; i++) {
+          segments[i].style.backgroundColor = "#FA9201";
+          
+        }
+        indicator.style.backgroundcolor="#FA9201";
+        indicator.textContent="3";
+        statusText.textContent="Mid Potential";
+        
+      } 
+      else if (cpi >= 2) {
+        // 2'den büyükse, tüm segmentleri #f3f3f3 yap
+        segments.forEach(segment => {
+          segment.style.backgroundColor = "#f3f3f3";
+        });
+        indicator.style.backgroundcolor="#f3f3f3";
+        indicator.textContent="0";
+        statusText.textContent="Low Potential";
+      
+      }
+      */
+        
+    }
+
+  }
+
+   function setScore(cpi){
+    const segments = document.querySelectorAll(".segment");
+    const indicator= document.getElementById('indicator');
+    const statusText=document.getElementById('status-text');
+
+   
+      // Segmentleri sıfırla
+    segments.forEach(segment => {
+      segment.style.backgroundColor = "#f3f3f3";
+    });
+    
+    if (cpi < 1) {
+      // 1'den küçükse, 5 segmenti yeşil yap
+      segments.forEach(segment => {
+        segment.style.backgroundColor = "#4DFA01";
+        
+      });
+      indicator.style.backgroundColor="#4DFA01";
+      indicator.textContent="5";
+      statusText.textContent="High Potential";
+    } 
+    else if (cpi >= 1 && cpi < 2) {
+      // 1 ile 2 arasında ise, ilk 3 segmenti sarı yap
+      for (let i = 0; i < 3; i++) {
+        segments[i].style.backgroundColor = "#FA9201";
+        
+      }
+      indicator.style.backgroundcolor="#FA9201";
+      indicator.textContent="3";
+      statusText.textContent="Mid Potential";
+      
+    } 
+    else if (cpi >= 2) {
+      // 2'den büyükse, tüm segmentleri #f3f3f3 yap
+      segments.forEach(segment => {
+        segment.style.backgroundColor = "#f3f3f3";
+      });
+      indicator.style.backgroundcolor="#f3f3f3";
+      indicator.textContent="0";
+      statusText.textContent="Low Potential";
+     
+    }
+
+
+  }
+  
+  
+  </script>
+
+<script src="/static/Line Chart/apexScript.js"></script>
+</body>
+</html>

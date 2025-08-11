@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Performance Chart</title>
+    
+    <!-- Bootstrap CSS (Sadece chart için geçerli olacak) -->
+    <style>
+        /* Bootstrap'in tüm sayfada etkisini sınırlamak için */
+        .chart-container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+        }
+
+       
+    </style>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Game Performance Chart</h1>
+        <!-- Chart Container -->
+        <div class="chart-container mt-5">
+            <canvas id="performanceChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        let chart;
+
+        // Default game_id set to 1
+        const gameId = 1;
+
+        // Fetch chart data when the page is loaded
+        fetch('/get_chart_data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ game_id: gameId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const dates = data.map(item => item.date);
+            const installs = data.map(item => item.total_installs);
+            const cpi = data.map(item => item.cpi);
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: 'Installs',
+                            data: installs,
+                            borderColor: 'purple',
+                            backgroundColor: 'rgba(128, 0, 128, 0.1)',
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'CPI',
+                            data: cpi,
+                            borderColor: 'yellow',
+                            backgroundColor: 'rgba(255, 255, 0, 0.1)',
+                            fill: true,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Installs'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'CPI'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(err => console.error('Error fetching chart data:', err));
+    </script>
+</body>
+</html>

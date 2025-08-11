@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/GetGamesPage/getgames.css">
+    <title>Game Status Table</title>
+    <title>Oyun Yayınlama</title>
+</head>
+<body>
+
+    <div class="main-page-container">
+
+    <div class="header-main-page" style="transform: translateY(-25px);">
+    <h1>Game Status Table</h1>
+    <label for="companyDropdown">Select Company:</label>
+    <select id="companyDropdown">
+        <option value="">Select a Company</option>
+    </select>
+    </div>
+  
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Game Title</th>
+                    <th>Game Status</th>
+                    <th>CPI</th>
+                    <th>CVR</th>
+                    <th>CTR</th>
+                </tr>
+            </thead>
+            <tbody id="gamesTableBody">
+                <tr>
+                    <td colspan="6">Select a company to see games.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <script src="/static/GetGamesPage/getgames.js">
+        
+    </script>
+</body>
+</html>

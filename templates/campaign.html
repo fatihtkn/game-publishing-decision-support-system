@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Set & Creative Table</title>
+    <style>
+       
+        #campaign-page {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        #campaign-page table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #campaign-page th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        #campaign-page th {
+            background-color: #007bff;
+            color: white;
+        }
+        #campaign-page tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        #campaign-page tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body >
+    <div  id="campaign-page" >
+    <h1>Ad Set & Creative Table</h1>
+    <table>
+        <thead>
+            <tr>
+                <th id="ad-set-id">Ad Set 1</th>
+               
+                <th>Cost</th>
+                <th>Impressions</th>
+                <th>Clicks</th>
+                <th>Installs</th>
+                <th>CPI</th>
+                <th>CVR</th>
+                <th>CTR</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+         
+        </tbody>
+    </table>
+</div>
+    <script>
+       window.fetchCampaingTableData= async function fetchCampaingTableData(gameId) {
+            const game_id = gameId; // Example game_id
+            const response = await fetch(`/creatives?game_id=${game_id}`);
+            const data = await response.json();
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            data.forEach(row => {
+               
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    
+                    <td>${row.creative_id}</td>
+                    <td>${row.cost}$</td>
+                    <td>${row.impression}</td>
+                    <td>${row.click}</td>
+                    <td>${row.install}</td>
+                    <td>$ ${row.cpi}</td>
+                    <td>${row.cvr}%</td>
+                    <td>${row.ctr}%</td>
+                `;
+                
+                tableBody.appendChild(tr);
+            });
+        }
+
+      
+    </script>
+</body>
+</html>

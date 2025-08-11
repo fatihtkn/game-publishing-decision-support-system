@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+   
+   #cohort-retention-page  {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #cohort-retention-page  {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #cohort-retention-page  {
+      max-width: 1700px;
+      margin: 0 auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #cohort-retention-page  table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    #cohort-retention-page  thead {
+      background-color: #1976d2;
+      color: #fff;
+    }
+
+    #cohort-retention-page  th, td {
+      text-align: center;
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+
+    #cohort-retention-page  th {
+      font-size: 18px;
+    }
+
+    #cohort-retention-page  tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    #cohort-retention-page  tbody tr:nth-child(odd) {
+      background-color: #fff;
+    }
+
+    /* Tooltip Efekti */
+    #cohort-retention-page  td {
+      position: relative;
+    }
+
+    #cohort-retention-page  td:hover::after {
+      content: attr(appu-data-value) '% second';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    #cohort-retention-page td:hover::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    }
+  </style>
+</head>
+<body>
+  <h1>APPU Analysis Table</h1>
+  <div class="cohort-table" id="cohort-retention-page">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Day 1</th>
+          <th>Day 2</th>
+          <th>Day 3</th>
+          <th>Day 4</th>
+          <th>Day 5</th>
+          <th>Day 6</th>
+          <th>Day 7</th>
+          <th>Day 8</th>
+          <th>Day 9</th>
+          <th>Day 10</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dec 20</td>
+          <td appu-data-value="306">306</td>
+          <td appu-data-value="344">344</td>
+          <td appu-data-value="344">344</td>
+          <td appu-data-value="402">402</td>
+          <td appu-data-value="402">402</td>
+          <td appu-data-value="402">402</td>
+          <td appu-data-value="402">402</td>
+          <td appu-data-value="402">402</td>
+          <td appu-data-value="402">402</td>
+          <td appu-data-value="402">402</td>
+        </tr>
+        <tr>
+          <td>Dec 21</td>
+          <td appu-data-value="268">268</td>
+          <td appu-data-value="287">287</td>
+          <td appu-data-value="299">299</td>
+          <td appu-data-value="303">303</td>
+          <td appu-data-value="303">303</td>
+          <td appu-data-value="303">303</td>
+          <td appu-data-value="303">303</td>
+          <td appu-data-value="303">303</td>
+          <td appu-data-value="303">303</td>
+          <td appu-data-value="303">303</td>
+        </tr>
+        <tr>
+          <td>Dec 22</td>
+          <td appu-data-value="397">397</td>
+          <td appu-data-value="457">457</td>
+          <td appu-data-value="463">463</td>
+          <td appu-data-value="476">476</td>
+          <td appu-data-value="476">476</td>
+          <td appu-data-value="476">476</td>
+          <td appu-data-value="476">476</td>
+          <td appu-data-value="481">481</td>
+          <td appu-data-value="481">481</td>
+          <td appu-data-value="481">481</td>
+        </tr>
+        <tr>
+          <td>Dec 23</td>
+          <td appu-data-value="301">301</td>
+          <td appu-data-value="426">426</td>
+          <td appu-data-value="476">476</td>
+          <td appu-data-value="490">490</td>
+          <td appu-data-value="496">496</td>
+          <td appu-data-value="511">511</td>
+          <td appu-data-value="513">513</td>
+          <td appu-data-value="513">513</td>
+          <td appu-data-value="513">513</td>
+          <td appu-data-value="513">513</td>
+
+        </tr>
+        <tr>
+          <td>Dec 24</td>
+          <td appu-data-value="229">229</td>
+          <td appu-data-value="253">253</td>
+          <td appu-data-value="254">254</td>
+          <td appu-data-value="290">290</td>
+          <td appu-data-value="290">290</td>
+          <td appu-data-value="290">290</td>
+          <td appu-data-value="290">290</td>
+          <td appu-data-value="306">306</td>
+          <td appu-data-value="306">306</td>
+          <td appu-data-value="306">306</td>
+        </tr>
+        <tr>
+          <td>Dec 25</td>
+          <td appu-data-value="344">344</td>
+          <td appu-data-value="345">345</td>
+          <td appu-data-value="348">348</td>
+          <td appu-data-value="348">348</td>
+          <td appu-data-value="368">368</td>
+          <td appu-data-value="376">376</td>
+          <td appu-data-value="376">376</td>
+          <td appu-data-value="376">376</td>
+          <td appu-data-value="376">376</td>
+          <td appu-data-value="376">376</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+   
+    function applyColorBasedOnValueappu() {
+      const cells = document.querySelectorAll('td[appu-data-value]');
+
+      cells.forEach(cell => {
+        const value = parseInt(cell.getAttribute('appu-data-value'));
+
+        // Değerin aralığına göre renk ataması
+         if (value <= 100) {
+          cell.style.backgroundColor = '#E5F3FF'; // Açık mavi
+          cell.style.color = '#333';
+        } 
+        else if (value <= 200) {
+          cell.style.backgroundColor = '#CCE7FF'; // Açık mavi
+          cell.style.color = '#333';
+        } 
+          else if (value <= 300) {
+          cell.style.backgroundColor = '#99C7F7'; // Açık mavi
+          cell.style.color = '#333';
+        } else if (value <= 400) {
+          cell.style.backgroundColor = '#66A7EE'; // Orta mavi
+          cell.style.color = '#fff';
+        } else if (value <= 479) {
+          cell.style.backgroundColor = '#3387E5'; // Koyu mavi
+          cell.style.color = '#fff';
+        } else {
+          cell.style.backgroundColor = '#0067DC'; // En koyu mavi
+          cell.style.color = '#fff';
+        }
+      });
+    }
+    applyColorBasedOnValueappu();
+    // Sayfa yüklendiğinde renk uygulama
+    //window.onload = applyColorBasedOnValue;
+  </script>
+</body>
+</html>

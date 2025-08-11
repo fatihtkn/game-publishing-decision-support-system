@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
+    <link rel="stylesheet" href="/static/loginStyle.css">
+</head>
+<body>
+    <div class="login-container">
+       
+        <div class="login-form">
+            <!--<img src="{{ url_for('static', filename='assets/new-login.png') }}" alt="Logo" class="logo" />-->
+            <h2>Hoşgeldiniz</h2>
+            <form id="login-form-id">
+                <input type="text" id="user-id" placeholder="Kullanıcı Adınızı Yazın" name="user-id" required>
+                <input type="password" id="user-password" placeholder="Şifrenizi Yazın" name="user-password" required>
+                <button type="submit">Giriş</button>
+                
+            
+                <p id="error-message" class="error-message" style="color: red;"></p>
+                
+
+            </form>
+            
+        </div>
+
+        
+      
+        <div class="video-section">
+            <video autoplay muted loop>
+                <source src="{{ url_for('static', filename='assets/login_v2.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <script src="/static/login.js"></script>
+</body>
+</html>

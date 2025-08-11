@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cohort Analysis Table</title>
+  <style>
+   
+   #cohort-retention-page  {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #cohort-retention-page  {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #cohort-retention-page  {
+      max-width: 1700px;
+      margin: 0 auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #cohort-retention-page  table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    #cohort-retention-page  thead {
+      background-color: #1976d2;
+      color: #fff;
+    }
+
+    #cohort-retention-page  th, td {
+      text-align: center;
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+
+    #cohort-retention-page  th {
+      font-size: 18px;
+    }
+
+    #cohort-retention-page  tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    #cohort-retention-page  tbody tr:nth-child(odd) {
+      background-color: #fff;
+    }
+
+    /* Tooltip Efekti */
+    #cohort-retention-page  td {
+      position: relative;
+    }
+
+    #cohort-retention-page  td:hover::after {
+      content: attr(retention-data-value) '% users';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    #cohort-retention-page td:hover::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    }
+  </style>
+</head>
+<body>
+  <h1>Retention Analysis Table</h1>
+  <div class="cohort-table" id="cohort-retention-page">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Day 1</th>
+          <th>Day 2</th>
+          <th>Day 3</th>
+          <th>Day 4</th>
+          <th>Day 5</th>
+          <th>Day 6</th>
+          <th>Day 7</th>
+          <th>Day 8</th>
+          <th>Day 9</th>
+          <th>Day 10</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dec 20</td>
+          <td retention-data-value="12">12.00%</td>
+          <td retention-data-value="12">12.45%</td>
+          <td retention-data-value="9">%9</td>
+          <td retention-data-value="13">13%</td>
+          <td retention-data-value="17">17%</td>
+          <td retention-data-value="22">22.67%</td>
+          <td retention-data-value="5">5.8%</td>
+          <td retention-data-value="11">11.32%</td>
+          <td retention-data-value="4">4.55%</td>
+          <td retention-data-value="0">0%</td>
+        </tr>
+        <tr>
+          <td>Dec 21</td>
+          <td retention-data-value="8">8.00%</td>
+          <td retention-data-value="6">6.31%</td>
+          <td retention-data-value="3">%5.00</td>
+          <td retention-data-value="0">0%</td>
+          <td retention-data-value="17">17%</td>
+          <td retention-data-value="22">22.67%</td>
+          <td retention-data-value="14">14.12%</td>
+          <td retention-data-value="8">8.32%</td>
+          <td retention-data-value="14">14.55%</td>
+          <td retention-data-value="27">27%</td>
+        </tr>
+        <tr>
+          <td>Dec 22</td>
+          <td retention-data-value="8">8.00%</td>
+          <td retention-data-value="14">14.78%</td>
+          <td retention-data-value="9">%9.00</td>
+          <td retention-data-value="30">30.00%</td>
+          <td retention-data-value="17">17%</td>
+          <td retention-data-value="30">30.67%</td>
+          <td retention-data-value="28">28.00%</td>
+          <td retention-data-value="8">8.32%</td>
+          <td retention-data-value="7">7.55%</td>
+          <td retention-data-value="1">1%</td>
+        </tr>
+        <tr>
+          <td>Dec 23</td>
+          <td retention-data-value="1">1.00%</td>
+          <td retention-data-value="27">27.48%</td>
+          <td retention-data-value="3">3.00%</td>
+          <td retention-data-value="14">14.00%</td>
+          <td retention-data-value="17">17.00%</td>
+          <td retention-data-value="30">30.67%</td>
+          <td retention-data-value="14">14.12%</td>
+          <td retention-data-value="8">8.32%</td>
+          <td retention-data-value="14">13.55%</td>
+          <td retention-data-value="11">11%</td>
+
+        </tr>
+        <tr>
+          <td>Dec 24</td>
+          <td retention-data-value="12">12.00%</td>
+          <td retention-data-value="12">12.45%</td>
+          <td retention-data-value="31">%31.00</td>
+          <td retention-data-value="5">5%</td>
+          <td retention-data-value="17">17%</td>
+          <td retention-data-value="25">25.17%</td>
+          <td retention-data-value="0">0</td>
+          <td retention-data-value="11">11.32%</td>
+          <td retention-data-value="4">4.55%</td>
+          <td retention-data-value="0">0%</td>
+        </tr>
+        <tr>
+          <td>Dec 25</td>
+          <td retention-data-value="1">1.00%</td>
+          <td retention-data-value="27">27.48%</td>
+          <td retention-data-value="23">%23.00</td>
+          <td retention-data-value="0">0%</td>
+          <td retention-data-value="17">17.00%</td>
+          <td retention-data-value="30">30.67%</td>
+          <td retention-data-value="14">14.12%</td>
+          <td retention-data-value="8">8.32%</td>
+          <td retention-data-value="7">7.55%</td>
+          <td retention-data-value="11">11%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+   
+    function applyColorBasedOnValueRetention() {
+      const cells = document.querySelectorAll('td[retention-data-value]');
+
+      cells.forEach(cell => {
+        const value = parseInt(cell.getAttribute('retention-data-value'));
+
+        // Değerin aralığına göre renk ataması
+         if (value <= 5) {
+          cell.style.backgroundColor = '#E5F3FF'; // Açık mavi
+          cell.style.color = '#333';
+        } 
+        else if (value <= 10) {
+          cell.style.backgroundColor = '#CCE7FF'; // Açık mavi
+          cell.style.color = '#333';
+        } 
+          else if (value <= 15) {
+          cell.style.backgroundColor = '#99C7F7'; // Açık mavi
+          cell.style.color = '#333';
+        } else if (value <= 25) {
+          cell.style.backgroundColor = '#66A7EE'; // Orta mavi
+          cell.style.color = '#fff';
+        } else if (value <= 30) {
+          cell.style.backgroundColor = '#3387E5'; // Koyu mavi
+          cell.style.color = '#fff';
+        } else {
+          cell.style.backgroundColor = '#0067DC'; // En koyu mavi
+          cell.style.color = '#fff';
+        }
+      });
+    }
+    applyColorBasedOnValueRetention();
+    // Sayfa yüklendiğinde renk uygulama
+    //window.onload = applyColorBasedOnValue;
+  </script>
+</body>
+</html>
