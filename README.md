@@ -1,7 +1,7 @@
 # Game Publishing Decision Support System
 
 ## Overview  
-This project was developed as part of the **Decision Support Systems course.  
+This project was developed as part of the **Decision Support Systems** course.  
 The system is designed to help **game publishing companies** evaluate and select high-potential games by analyzing marketing data, in-game metrics, and user behavior.  
 
 With the rapid growth of the gaming industry and the ease of access to game development tools, publishers receive thousands of submissions every year. Since resources are limited, selecting the most promising titles is essential. This Decision Support System (DSS) provides data-driven insights to assist publishers in making strategic choices.  
